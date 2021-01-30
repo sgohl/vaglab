@@ -45,7 +45,6 @@ nodelist {
         ring0_addr: centos3
         nodeid: 3
     }
-
 }
 EOF
 
