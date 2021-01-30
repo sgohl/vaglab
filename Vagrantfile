@@ -2,6 +2,9 @@ $provision = <<END
 sed -i "/^127.0.0.1.*$HOSTNAME/d" /etc/hosts
 for i in 1 2 3; do echo "11.11.11.1$i centos$i" >> /etc/hosts ; done
 
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' /etc/default/grub
+/usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+
 source /vagrant/.env
 END
 
