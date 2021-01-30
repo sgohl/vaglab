@@ -5,6 +5,7 @@ dnf -y install docker-ce
 systemctl enable --now docker
 
 usermod -aG docker vagrant
+chmod 777 /var/run/docker.sock
 
 case $HOSTNAME in
   *1)
