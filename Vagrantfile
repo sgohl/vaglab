@@ -5,6 +5,9 @@ for i in 1 2 3; do echo "11.11.11.1$i centos$i" >> /etc/hosts ; done
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' /etc/default/grub
 /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
 
+# unix task-spooler (ts)
+cd /usr/src ; curl -s http://vicerveza.homeunix.net/~viric/soft/ts/ts-1.0.tar.gz | tar zxvf - && cd ts* && make && make install ; mv /usr/local/bin/ts /usr/bin/
+
 source /vagrant/.env
 END
 
