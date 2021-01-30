@@ -6,7 +6,15 @@ case $HOSTNAME in *3) exit 0 ;; esac
 dnf -y install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 dnf -y install drbd drbd-utils kmod-drbd90 lvm2
 
-depmod -a && modprobe drbd
+if lsblk | grep sdb
+then
+  pvcreate /dev/sdb
+  vgcreate drbd /dev/sdb
+  lvcreate --name data --size 5G drbd
+else
+  echo "no sdb found."
+  exit 0
+fi
 
 cat >/etc/drbd.d/r0.res <<EOF
 resource r0 {
@@ -18,16 +26,7 @@ resource r0 {
 }
 EOF
 
-if lsblk | grep sdb
-then
-  pvcreate /dev/sdb
-  vgcreate drbd /dev/sdb
-  lvcreate --name data --size 5G drbd
-else
-  echo "no sdb found."
-  exit 0
-fi
-
+depmod -a && modprobe drbd
 drbdadm create-md r0 && drbdadm up r0
 
 case $HOSTNAME in *1)
