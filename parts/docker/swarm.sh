@@ -4,7 +4,7 @@ dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce
 dnf -y install docker-ce
 systemctl enable --now docker
 
-case $HOST in
+case $HOSTNAME in
   *1)
     docker swarm init --advertise-addr 11.11.11.11
     docker swarm join-token manager | grep join | tee /vagrant/.swarm-token-manager
