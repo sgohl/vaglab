@@ -1,2 +1,2 @@
-# vaglab
-vagrant lab for centos
+# vagrant testlab (centos 8 stream)
+
