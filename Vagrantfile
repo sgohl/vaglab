@@ -11,7 +11,7 @@ END
 Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ['storagectl', :id, '--name', 'scsi', '--add', 'scsi', '--controller', 'LSILogic']
+    vb.customize ['storagectl', :id, '--name', 'scsi', '--add', 'scsi', '--controller', 'AHCI']
   end
 
   (1..3).each do |i|
