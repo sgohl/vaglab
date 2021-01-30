@@ -8,4 +8,5 @@ vagrant ssh centos2
 vagrant ssh centos3
 ```
 
-This repo will be within vagrant machines at `/vagrant` so you can use the scripts in `parts/` 
+This repo will be accessible within (and synced across all) vagrant machines at
+`/vagrant` so you can use the scripts in `parts/` 
