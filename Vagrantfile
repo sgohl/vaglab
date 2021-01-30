@@ -11,7 +11,7 @@ END
 Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ['storagectl', :id, '--name', 'scsi', '--add', 'scsi', '--controller', 'AHCI']
+    vb.customize ['storagectl', :id, '--name', 'sata', '--add', 'sata', '--controller', 'IntelAHCI']
   end
 
   (1..3).each do |i|
@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
            c.customize ['createhd', '--filename', "centos#{i}.vdi", '--variant', 'Standard', '--size', 6000]
          end
 
-         c.customize ['storageattach', :id, '--storagectl', 'scsi', '--port', 0, '--device', 0, '--type', 'hdd', '--medium', "centos#{i}.vdi"]
+         c.customize ['storageattach', :id, '--storagectl', 'sata', '--port', 0, '--device', 0, '--type', 'hdd', '--medium', "centos#{i}.vdi"]
        end
     end
   end       
