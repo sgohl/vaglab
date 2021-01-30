@@ -1,6 +1,8 @@
 $provision = <<END
 sed -i "/^127.0.0.1.*$HOSTNAME/d" /etc/hosts
 for i in 1 2 3; do echo "11.11.11.1$i centos$i" >> /etc/hosts ; done
+
+source /vagrant/.env
 END
 
 Vagrant.configure(2) do |config|
