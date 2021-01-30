@@ -3,16 +3,6 @@
 # Do only on node1 and node2
 case $HOSTNAME in *3) exit 0 ;; esac
 
-if lsblk | grep sdb
-then
-  pvcreate /dev/sdb
-  vgcreate drbd /dev/sdb
-  lvcreate --name data --size 5G drbd
-else
-  echo "no sdb found."
-  exit 0
-fi
-
 dnf -y install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 dnf -y install drbd drbd-utils kmod-drbd90 lvm2
 
@@ -27,6 +17,16 @@ resource r0 {
   on centos2 { address 11.11.11.12:7789; }
 }
 EOF
+
+if lsblk | grep sdb
+then
+  pvcreate /dev/sdb
+  vgcreate drbd /dev/sdb
+  lvcreate --name data --size 5G drbd
+else
+  echo "no sdb found."
+  exit 0
+fi
 
 drbdadm create-md r0 && drbdadm up r0
 
